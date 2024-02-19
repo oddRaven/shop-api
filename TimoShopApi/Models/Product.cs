@@ -1,12 +1,15 @@
-﻿namespace TimoShopApi.Models
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace TimoShopApi.Models
 {
     public class Product
     {
         private int _cartAmount = 0;
 
-        public Guid Guid { get; } = Guid.NewGuid();
-        public string Title { get; init; }
-        public string Description { get; init; }
+        public int ID { get; init; }
+        public string Title { get; init; } = "";
+        public string Description { get; init; } = "";
+        [Precision(18, 2)]
         public decimal Price { get; init; }
         public string? ImageUrl { get; init; }
         public int StorageAmount { get; init; }

@@ -22,10 +22,10 @@ namespace TimoShopApi.Controllers
             return Ok(products);
         }
 
-        [HttpGet("{guid}")]
-        public ActionResult<Product> Get(Guid guid)
+        [HttpGet("{id}")]
+        public ActionResult<Product> Get(int id)
         {
-            Product? product = _productService.Get(guid);
+            Product? product = _productService.Get(id);
 
             if (product == null)
             {
@@ -35,10 +35,10 @@ namespace TimoShopApi.Controllers
             return Ok(product);
         }
 
-        [HttpPut("{guid}")]
-        public ActionResult<Product> Update(Guid guid, [FromBody] int cartAmount)
+        [HttpPut("{id}")]
+        public ActionResult<Product> Update(int id, [FromBody] int cartAmount)
         {
-            Product? product = _productService.Get(guid);
+            Product? product = _productService.Get(id);
 
             if (product == null)
             {
