@@ -5,9 +5,10 @@
         private int _cartAmount = 0;
 
         public Guid Guid { get; } = Guid.NewGuid();
-        public string Name { get; init; }
+        public string Title { get; init; }
+        public string Description { get; init; }
         public decimal Price { get; init; }
-        public string ImageSrc { get; init; } = "placeholder.png";
+        public string? ImageUrl { get; init; }
         public int StorageAmount { get; init; }
 
         public int CartAmount {
