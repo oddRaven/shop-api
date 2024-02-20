@@ -6,5 +6,6 @@ namespace TimoShopApi.Services
     {
         IEnumerable<Product> GetAll();
         Product Get(int id);
+        void Update(Product product);
     }
 }

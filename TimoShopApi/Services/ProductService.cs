@@ -17,6 +17,12 @@ namespace TimoShopApi.Services
             return _shopContext.Products.FirstOrDefault(product => product.ID == id);
         }
 
+        public void Update(Product product)
+        {
+            _shopContext.Update(product);
+            _shopContext.SaveChanges();
+        }
+
         public IEnumerable<Product> GetAll() => [.. _shopContext.Products];
     }
 }

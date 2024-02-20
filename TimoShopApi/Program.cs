@@ -1,16 +1,24 @@
 using TimoShopApi.Services;
 
-var allowOrigins = "AllowOrigins";
+var corsPolicyName = "AllowLocalhost";
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddCors(options =>
+/*builder.Services.AddCors(options =>
 {
     options.AddPolicy(
-        name: allowOrigins,
-        policy  => policy.WithOrigins("http://localhost:4200", "https://localhost:4200")
+        name: corsPolicyName,
+        policy => policy.WithOrigins("http://localhost:4200", "https://localhost:4200")
     );
-});
+});*/
+
+builder.Services.AddCors(options => options.AddPolicy(corsPolicyName, builder =>
+{
+    builder
+        .WithOrigins("http://localhost:4200", "https://localhost:4200")
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+}));
 
 // Add services to the container.
 
@@ -32,7 +40,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCors(allowOrigins);
+app.UseCors(corsPolicyName);
 
 app.UseAuthorization();
 

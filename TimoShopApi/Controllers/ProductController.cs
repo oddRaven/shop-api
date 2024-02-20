@@ -46,6 +46,7 @@ namespace TimoShopApi.Controllers
             }
 
             product.CartAmount = cartAmount;
+            _productService.Update(product);
 
             return Ok(product);
         }
