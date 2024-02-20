@@ -1,11 +1,10 @@
 ﻿using TimoShopApi.Models;
 
-namespace TimoShopApi.Services
+namespace TimoShopApi.Services;
+
+public interface IProductService
 {
-    public interface IProductService
-    {
-        IEnumerable<Product> GetAll();
-        Product Get(int id);
-        void Update(Product product);
-    }
+    IEnumerable<Product> GetAll();
+    Product Get(int id);
+    void Update(Product product);
 }
