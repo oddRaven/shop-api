@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using TimoShopApi.Models;
+using TimoShopApi.Responses;
 using TimoShopApi.Services;
 
 namespace TimoShopApi.Controllers
@@ -8,22 +11,25 @@ namespace TimoShopApi.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
+        private readonly IMapper _mapper;
         private readonly IProductService _productService;
 
-        public ProductController(IProductService productService)
+        public ProductController(IMapper mapper, IProductService productService)
         {
+            _mapper = mapper;
             _productService = productService;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Product>> Get()
+        public ActionResult<IEnumerable<ProductResponse>> Get()
         {
             IEnumerable<Product> products = _productService.GetAll();
-            return Ok(products);
+            var productsResponse = _mapper.Map<IEnumerable<ProductResponse>>(products);
+            return Ok(productsResponse);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Product> Get(int id)
+        public ActionResult<ProductResponse> Get(int id)
         {
             Product? product = _productService.Get(id);
 
@@ -32,11 +38,13 @@ namespace TimoShopApi.Controllers
                 return NotFound();
             }
 
-            return Ok(product);
+            var productResponse = _mapper.Map<ProductResponse>(product);
+
+            return Ok(productResponse);
         }
 
         [HttpPut("{id}")]
-        public ActionResult<Product> Update(int id, [FromBody] int cartAmount)
+        public ActionResult<ProductResponse> Update(int id, [FromBody] int cartAmount)
         {
             Product? product = _productService.Get(id);
 
@@ -48,7 +56,9 @@ namespace TimoShopApi.Controllers
             product.CartAmount = cartAmount;
             _productService.Update(product);
 
-            return Ok(product);
+            var productResponse = _mapper.Map<ProductResponse>(product);
+
+            return Ok(productResponse);
         }
     }
 }

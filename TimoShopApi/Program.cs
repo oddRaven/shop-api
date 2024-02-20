@@ -1,16 +1,10 @@
+using AutoMapper;
+using TimoShopApi.Mappers;
 using TimoShopApi.Services;
 
 var corsPolicyName = "AllowLocalhost";
 
 var builder = WebApplication.CreateBuilder(args);
-
-/*builder.Services.AddCors(options =>
-{
-    options.AddPolicy(
-        name: corsPolicyName,
-        policy => policy.WithOrigins("http://localhost:4200", "https://localhost:4200")
-    );
-});*/
 
 builder.Services.AddCors(options => options.AddPolicy(corsPolicyName, builder =>
 {
@@ -28,6 +22,14 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<IProductService, ProductService>();
+
+ IMapper mapper = new MapperConfiguration(mc =>
+ {
+     mc.AddProfile(new ProductMapperProfile());
+ })
+    .CreateMapper();
+
+ builder.Services.AddSingleton(mapper);
 
 var app = builder.Build();
 
