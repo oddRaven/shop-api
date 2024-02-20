@@ -1,4 +1,5 @@
 using AutoMapper;
+using TimoShopApi.Configurations;
 using TimoShopApi.Mappers;
 using TimoShopApi.Services;
 
@@ -22,6 +23,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<IProductService, ProductService>();
+
+builder.Services.Configure<DatabaseConfiguration>(builder.Configuration.GetSection("Database"));
 
  IMapper mapper = new MapperConfiguration(mc =>
  {

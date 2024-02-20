@@ -1,4 +1,6 @@
-﻿using TimoShopApi.Database;
+﻿using Microsoft.Extensions.Options;
+using TimoShopApi.Configurations;
+using TimoShopApi.Database;
 using TimoShopApi.Models;
 
 namespace TimoShopApi.Services
@@ -7,9 +9,9 @@ namespace TimoShopApi.Services
     {
         private readonly ShopContext _shopContext;
 
-        public ProductService(IConfiguration configuration)
+        public ProductService(IOptions<DatabaseConfiguration> databaseConfigurationOptions)
         {
-            _shopContext = new(configuration);
+            _shopContext = new(databaseConfigurationOptions);
         }
 
         public Product? Get(int id)

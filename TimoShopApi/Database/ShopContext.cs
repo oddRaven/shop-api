@@ -1,23 +1,24 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using TimoShopApi.Configurations;
 using TimoShopApi.Models;
 
-namespace TimoShopApi.Database
+namespace TimoShopApi.Database;
+
+public class ShopContext : DbContext
 {
-    public class ShopContext : DbContext
+    private readonly IOptions<DatabaseConfiguration> _databaseConfigurationOptions;
+
+    public ShopContext(IOptions<DatabaseConfiguration> databaseConfigurationOptions)
     {
-        private readonly IConfiguration _configuration;
+        _databaseConfigurationOptions = databaseConfigurationOptions;
+    }
 
-        public ShopContext(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
+    public DbSet<Product> Products { get; set; }
 
-        public DbSet<Product> Products { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            var connectionString = _configuration["Database:ConnectionString"];
-            optionsBuilder.UseSqlServer(connectionString);
-        }
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        var connectionString = _databaseConfigurationOptions.Value.ConnectionString;
+        optionsBuilder.UseSqlServer(connectionString);
     }
 }
