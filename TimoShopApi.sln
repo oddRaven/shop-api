@@ -5,7 +5,12 @@ VisualStudioVersion = 17.9.34607.119
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimoShopApi", "TimoShopApi\TimoShopApi.csproj", "{452C8D92-1816-40F5-AFA9-4BA13685F071}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimoShopApi.Test", "TimoShopApi.Test\TimoShopApi.Test.csproj", "{15CC334E-D633-486F-9068-061068DD7EAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimoShopApi.Test", "TimoShopApi.Test\TimoShopApi.Test.csproj", "{15CC334E-D633-486F-9068-061068DD7EAB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4E49C0AE-D9ED-4065-8169-648384CF0858}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
