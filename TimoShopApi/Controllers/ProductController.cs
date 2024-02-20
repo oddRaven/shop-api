@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using TimoShopApi.Models;
+using TimoShopApi.Requests;
 using TimoShopApi.Responses;
 using TimoShopApi.Services;
 
@@ -43,7 +44,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public ActionResult<ProductResponse> Update(int id, [FromBody] int cartAmount)
+    public ActionResult<ProductResponse> Update(int id, [FromBody] ProductRequest productRequest)
     {
         Product? product = _productService.Get(id);
 
@@ -52,7 +53,7 @@ public class ProductController : ControllerBase
             return NotFound();
         }
 
-        product.CartAmount = cartAmount;
+        _mapper.Map(productRequest, product);
         _productService.Update(product);
 
         var productResponse = _mapper.Map<ProductResponse>(product);
